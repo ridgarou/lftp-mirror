@@ -638,7 +638,8 @@ def mirror(args, log):
     log.list('lftp mirror arguments', scp_args)
 
     with open('ftpscript', 'w') as script:
-        lines = ('open {0}ftp://{1} {2}'.format(args.secure, args.site, port),
+        lines = ('set ftp:list-options -a',
+                 'open {0}ftp://{1} {2}'.format(args.secure, args.site, port),
                  'user {0}'.format(user),
                  'mirror {0} {1} {2}'.format(scp_args,
                                              local if args.reverse else remote,
