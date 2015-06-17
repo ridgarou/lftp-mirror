@@ -392,6 +392,10 @@ def arguments():
                        const=" --depth-first", dest="depth_first", default="",
                        help="descend into subdirectories, before transfer "
                        "files")
+    shell.add_argument("--scan-all-first", action="store_const", 
+                       const=" --scan-all-first", dest="scan-all-first", default="", 
+                       help="scan all directories recursively before  transferring files")
+
     shell.add_argument("--no-empty-dirs", action="store_const",
                        const=" --no-empty-dirs", dest="no_empty_dir",
                        default="",
