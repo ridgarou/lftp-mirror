@@ -645,7 +645,7 @@ def mirror(args, log):
         lines = ('set ftp:list-options -a',
                  'open {0}ftp://{1} {2}'.format(args.secure, args.site, port),
                  'user {0}'.format(user),
-                 'mirror {0} {1} {2}'.format(scp_args,
+                 'mirror {0} "{1}" "{2}"'.format(scp_args,
                                              local if args.reverse else remote,
                                              remote if args.reverse else local),
                  'exit')
@@ -682,15 +682,21 @@ def mirror(args, log):
 
 def parse_parms(*parms):
     """Parse parameters from script or config file to shell format."""
-    parameters = ("shell {0} {1} {2} {3} {4} {5} {6}".
+   parameters = ("shell {0} {1} {2} {3} {4} {5} {6}".
                   format(parms[0],
                          '-p {0}'.format(parms[1]) if parms[1] else '',
-                         parms[2],
-                         parms[3],
+                         parms[2].replace(" ","¤"),
+                         parms[3].replace(" ","¤"),
                          '-l {0}'.format(parms[4]) if parms[4] else '',
                          base64.b64decode(parms[5]),
                          parms[6]))
-    return parameters.split()
+
+   retParam =  parameters.split()
+
+   for i in range(len(retParam)):
+	   retParam[i] = retParam[i].replace("¤"," ")
+
+   return retParam 
 
 
 def main():
